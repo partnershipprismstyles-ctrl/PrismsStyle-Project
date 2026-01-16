@@ -8,7 +8,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
   const featured = products.filter(p => p.featured);
   const bestSellers = products.filter(p => p.bestSeller);
 
-  // 5 Premium High-Fashion Men's Looks - Updated with highly reliable high-res URLs
+  // 5 High-Visibility, Ultra-Professional Men's Looks
   const menStyleGallery = [
     { id: 1, img: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&q=80&w=800', label: 'Structured Minimalism' },
     { id: 2, img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800', label: 'Urban Utility' },
@@ -71,7 +71,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
         </section>
       )}
 
-      {/* Men's Style Spotlight - Optimized for 5 Outfits */}
+      {/* Men's Style Spotlight */}
       <section className="py-32 bg-white overflow-hidden border-b">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16">
@@ -79,7 +79,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               <h2 className="text-prism font-black uppercase tracking-[0.5em] text-[10px] mb-4">Men's Style Spotlight</h2>
               <h3 className="text-6xl font-black font-oswald uppercase tracking-tighter mb-8 leading-none">PRISM <br />MASCULINE.</h3>
               <p className="text-gray-400 text-sm font-bold uppercase tracking-[0.2em] max-w-lg leading-relaxed">
-                Five signature directions for the modern wardrobe. Architectural silhouettes met with high-performance textiles.
+                Precision-engineered silhouettes met with high-performance textiles. Discover 5 signature directions for the modern wardrobe.
               </p>
             </div>
             <button 
@@ -90,9 +90,8 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
             </button>
           </div>
 
-          {/* 5-Outfit Editorial Grid */}
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 h-auto md:h-[1000px]">
-            {/* Outfit 1: Tall Vertical */}
+            {/* Outfit 1 */}
             <div className="md:col-span-2 lg:col-span-1 h-[500px] md:h-full group relative overflow-hidden bg-zinc-100">
               <img src={menStyleGallery[0].img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" alt={menStyleGallery[0].label} />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500"></div>
@@ -102,7 +101,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               </div>
             </div>
 
-            {/* Outfit 2: Upper Box */}
+            {/* Outfit 2 */}
             <div className="md:col-span-2 lg:col-span-2 h-[450px] group relative overflow-hidden bg-zinc-200">
               <img src={menStyleGallery[1].img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" alt={menStyleGallery[1].label} />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500"></div>
@@ -112,7 +111,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               </div>
             </div>
 
-            {/* Outfit 3: Central Masterpiece (Large) */}
+            {/* Outfit 3 (Main) */}
             <div className="md:col-span-4 lg:col-span-3 lg:row-span-2 h-[600px] md:h-full group relative overflow-hidden shadow-2xl">
               <img src={menStyleGallery[2].img} className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" alt={menStyleGallery[2].label} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
@@ -128,7 +127,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               </div>
             </div>
 
-            {/* Outfit 4: Lower Small */}
+            {/* Outfit 4 */}
             <div className="md:col-span-2 lg:col-span-1 h-[450px] md:h-auto group relative overflow-hidden bg-zinc-100">
               <img src={menStyleGallery[3].img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" alt={menStyleGallery[3].label} />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500"></div>
@@ -138,7 +137,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               </div>
             </div>
 
-            {/* Outfit 5: Lower Right */}
+            {/* Outfit 5 */}
             <div className="md:col-span-2 lg:col-span-2 h-[450px] md:h-auto group relative overflow-hidden bg-zinc-200">
               <img src={menStyleGallery[4].img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" alt={menStyleGallery[4].label} />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500"></div>
