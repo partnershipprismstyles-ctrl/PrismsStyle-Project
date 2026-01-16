@@ -1,0 +1,7 @@
+{
+  "name": "Copy of PRISM STYLES - Premium Streetwear",
+  "description": "A luxury fashion e-commerce experience featuring high-end streetwear, a fully functional shopping cart, and a robust admin dashboard for CMS management.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
