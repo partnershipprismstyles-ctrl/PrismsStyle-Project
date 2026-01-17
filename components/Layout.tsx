@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Search, User, Menu, X, Heart, Settings, Calendar } from 'lucide-react';
 import { useStore } from '../store/StoreContext';
+import AIStylist from './AIStylist';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -168,6 +169,9 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setActivePage }) 
       <main className="flex-grow">
         {children}
       </main>
+
+      {/* AI Assistant */}
+      <AIStylist />
 
       {/* Footer */}
       <footer className="bg-black text-white pt-24 pb-12">
