@@ -33,21 +33,21 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
     <div className="animate-in fade-in duration-700">
       {/* Hero Section */}
       {settings.showHero && (
-        <section className="relative h-screen w-full bg-black overflow-hidden -mt-[88px]">
-          <div className="absolute inset-0">
+        <section className="relative h-screen w-full bg-black overflow-hidden -mt-[88px] z-0">
+          <div className="absolute inset-0 z-[-1]">
             <img 
-              src={settings.heroBackgroundImage || "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=1920"} 
-              alt="Hero Fashion" 
-              className="w-full h-full object-cover brightness-90 transition-opacity duration-1000"
+              src={settings.heroBackgroundImage || "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=1920"} 
+              alt="Hero Editorial" 
+              className="w-full h-full object-cover brightness-105 contrast-105 transition-opacity duration-1000"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/10 to-transparent z-[1]"></div>
           
-          <div className="relative h-full container mx-auto px-4 md:px-8 flex flex-col justify-center items-start text-white pt-20">
+          <div className="relative h-full container mx-auto px-4 md:px-8 flex flex-col justify-center items-start text-white pt-20 z-[2]">
             <div className="flex items-center space-x-3 mb-6 animate-in slide-in-from-left duration-700">
               <span className="w-12 h-[2px] bg-prism"></span>
               <p className="text-prism font-black tracking-[0.4em] uppercase text-[10px]">
-                Drop Phase 01 / Available Now
+                Editorial Phase 02 / Limited Edition
               </p>
             </div>
             
@@ -79,7 +79,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               {/* Conversion Booster: Countdown */}
               <div className="hidden md:flex flex-col items-end animate-in fade-in duration-1000 delay-700">
                 <p className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-400 mb-4 flex items-center">
-                  <Timer className="w-3 h-3 mr-2 text-prism animate-pulse" /> Reserve Slot: Batch 01
+                  <Timer className="w-3 h-3 mr-2 text-prism animate-pulse" /> Reserve Slot: Batch 02
                 </p>
                 <div className="flex space-x-4 text-5xl font-black font-oswald">
                   <div className="text-right">
@@ -103,7 +103,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
 
           <div className="absolute bottom-0 w-full bg-prism py-3 overflow-hidden whitespace-nowrap z-10 border-t border-white/10">
             <div className="inline-block animate-marquee uppercase text-[10px] font-black tracking-[0.4em] text-white px-4">
-              • NEXT GEN TEXTILES • LIMITED QUANTITY • SECURE YOUR SILHOUETTE • WORLDWIDE EXPRESS • ARCHITECTURAL INTEGRITY • NEXT GEN TEXTILES • LIMITED QUANTITY • SECURE YOUR SILHOUETTE •
+              • ARCHITECTURAL INTEGRITY • LIMITED PHASE 02 • SECURE YOUR SILHOUETTE • WORLDWIDE EXPRESS • ARCHITECTURAL INTEGRITY • LIMITED PHASE 02 • SECURE YOUR SILHOUETTE •
             </div>
           </div>
         </section>
@@ -117,7 +117,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               <h2 className="text-prism font-black uppercase tracking-[0.5em] text-[10px] mb-4">Men's Style Spotlight</h2>
               <h3 className="text-6xl font-black font-oswald uppercase tracking-tighter mb-8 leading-none">PRISM <br />MASCULINE.</h3>
               <p className="text-gray-400 text-sm font-bold uppercase tracking-[0.2em] max-w-lg leading-relaxed">
-                Explore 5 directional looks curated for the architectural wardrobe. High-density fabrics meet zero-gravity draping.
+                Explore directional looks curated for the structural wardrobe. Phase 02 materials focus on high-density wool and basalt fibers.
               </p>
             </div>
             <button 
@@ -129,7 +129,6 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 h-auto md:h-[1000px]">
-            {/* Outfit 1 */}
             <div className="md:col-span-2 lg:col-span-1 h-[500px] md:h-full group relative overflow-hidden bg-zinc-100">
               <img src={menStyleGallery[0].img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" alt={menStyleGallery[0].label} />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500"></div>
@@ -139,7 +138,6 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               </div>
             </div>
 
-            {/* Outfit 2 */}
             <div className="md:col-span-2 lg:col-span-2 h-[450px] group relative overflow-hidden bg-zinc-200">
               <img src={menStyleGallery[1].img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" alt={menStyleGallery[1].label} />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500"></div>
@@ -149,7 +147,6 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               </div>
             </div>
 
-            {/* Outfit 3 (Main) */}
             <div className="md:col-span-4 lg:col-span-3 lg:row-span-2 h-[600px] md:h-full group relative overflow-hidden shadow-2xl">
               <img src={menStyleGallery[2].img} className="w-full h-full object-cover transition-transform duration-[2000ms] group-hover:scale-110" alt={menStyleGallery[2].label} />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
@@ -164,26 +161,6 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
                 </button>
               </div>
             </div>
-
-            {/* Outfit 4 */}
-            <div className="md:col-span-2 lg:col-span-1 h-[450px] md:h-auto group relative overflow-hidden bg-zinc-100">
-              <img src={menStyleGallery[3].img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" alt={menStyleGallery[3].label} />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500"></div>
-              <div className="absolute bottom-8 left-8 text-white opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2">04</p>
-                <p className="text-lg font-black font-oswald uppercase tracking-tight">{menStyleGallery[3].label}</p>
-              </div>
-            </div>
-
-            {/* Outfit 5 */}
-            <div className="md:col-span-2 lg:col-span-2 h-[450px] md:h-auto group relative overflow-hidden bg-zinc-200">
-              <img src={menStyleGallery[4].img} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105" alt={menStyleGallery[4].label} />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-500"></div>
-              <div className="absolute bottom-8 left-8 text-white opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0">
-                <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2">05</p>
-                <p className="text-lg font-black font-oswald uppercase tracking-tight">{menStyleGallery[4].label}</p>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -196,12 +173,6 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               <h2 className="text-[10px] font-black tracking-[0.4em] text-zinc-400 uppercase mb-4">Identity Layers</h2>
               <h3 className="text-5xl font-black font-oswald uppercase tracking-tight">The Essentials</h3>
             </div>
-            <button 
-              onClick={() => onNavigate('shop')}
-              className="text-[10px] font-black uppercase tracking-[0.2em] border-b-2 border-black pb-2 hover:text-prism hover:border-prism transition-all mt-8 md:mt-0"
-            >
-              Explore Full Drop
-            </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -228,116 +199,6 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-      )}
-
-      {/* Booking CTA Section */}
-      {settings.showBookingCTA && (
-        <section className="bg-black text-white py-32 overflow-hidden relative">
-          <div className="absolute top-0 right-0 w-2/5 h-full opacity-40 grayscale blur-md pointer-events-none">
-            <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover" alt="Concierge Background" />
-          </div>
-          <div className="container mx-auto px-4 md:px-8 relative z-10">
-            <div className="max-w-2xl">
-              <h2 className="text-prism font-black uppercase tracking-[0.5em] text-[10px] mb-8">Personalized Luxury</h2>
-              <h3 className="text-5xl md:text-8xl font-black font-oswald uppercase tracking-tighter leading-none mb-10">
-                VIP STYLING <br />CONCIERGE.
-              </h3>
-              <p className="text-zinc-400 text-lg mb-14 leading-relaxed font-medium">
-                Experience the future of fashion in person. Private showroom sessions for bespoke tailoring and exclusive previews.
-              </p>
-              <button 
-                onClick={() => onNavigate('booking')}
-                className="bg-white text-black px-14 py-7 text-xs font-black uppercase tracking-[0.2em] hover:bg-prism hover:text-white transition-all flex items-center group shadow-2xl"
-              >
-                Request Session <Calendar className="ml-6 w-5 h-5 group-hover:rotate-12 transition-transform" />
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Bestsellers Section */}
-      {settings.showBestsellers && (
-        <section className="bg-zinc-50 py-32 overflow-hidden border-b">
-          <div className="container mx-auto px-4 md:px-8 mb-20">
-            <h2 className="text-[10px] font-black tracking-[0.4em] text-zinc-400 uppercase mb-4">Trending Now</h2>
-            <h3 className="text-5xl font-black font-oswald uppercase tracking-tight">Heavy Rotation</h3>
-          </div>
-          
-          <div className="flex space-x-10 px-4 md:px-8 overflow-x-auto pb-16 scrollbar-hide">
-            {bestSellers.map((product) => (
-              <div key={product.id} className="min-w-[320px] md:min-w-[450px] group bg-white p-6 shadow-sm hover:shadow-2xl transition-all border border-zinc-100">
-                <div className="relative h-[550px] overflow-hidden mb-8">
-                  <img 
-                    src={product.images[0]} 
-                    alt={product.name} 
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                  />
-                  <div className="absolute top-6 left-6 z-10">
-                    {product.stock < 15 && (
-                      <span className="bg-red-600 text-white text-[9px] font-black uppercase px-3 py-1.5 tracking-tighter animate-pulse shadow-xl">
-                        Batch Almost Exhausted
-                      </span>
-                    )}
-                  </div>
-                  <button 
-                    onClick={(e) => { e.stopPropagation(); toggleWishlist(product.id); }}
-                    className={`absolute top-6 right-6 p-4 rounded-full shadow-2xl transition-all z-10 ${wishlist.includes(product.id) ? 'bg-red-500 text-white' : 'bg-white text-black hover:bg-black hover:text-white'}`}
-                  >
-                    <Heart className={`w-5 h-5 ${wishlist.includes(product.id) ? 'fill-current' : ''}`} />
-                  </button>
-                  <div className="absolute bottom-0 left-0 w-full p-6 translate-y-full group-hover:translate-y-0 transition-all duration-500">
-                    <button 
-                      onClick={() => onNavigate('product', product)}
-                      className="w-full bg-black text-white py-5 text-[10px] font-black uppercase tracking-[0.3em] hover:bg-prism transition-all shadow-2xl"
-                    >
-                      Instant Buy
-                    </button>
-                  </div>
-                </div>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h4 className="font-black text-sm uppercase tracking-tight mb-2">{product.name}</h4>
-                    <p className="text-zinc-400 text-[10px] font-black uppercase tracking-widest">{product.category}</p>
-                  </div>
-                  <span className="font-black font-oswald text-2xl text-prism">${product.price}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* About Section */}
-      {settings.showAbout && (
-        <section className="py-40 container mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-            <div className="relative">
-              <div className="absolute -top-12 -left-12 w-48 h-48 bg-prism opacity-10 rounded-full blur-3xl -z-10"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&q=80&w=800" 
-                alt="Brand Vision" 
-                className="w-full grayscale hover:grayscale-0 transition-all duration-1000 shadow-2xl"
-              />
-              <div className="absolute -bottom-8 -right-8 bg-black text-white p-12 shadow-2xl">
-                <p className="text-5xl md:text-7xl font-black font-oswald tracking-tighter">EST. 2026</p>
-              </div>
-            </div>
-            <div className="max-w-xl">
-              <h2 className="text-[10px] font-black tracking-[0.5em] text-prism uppercase mb-8">Our Philosophy</h2>
-              <h3 className="text-5xl md:text-7xl font-black font-oswald uppercase tracking-tighter leading-[0.9] mb-12">
-                {settings.aboutHeading}
-              </h3>
-              <p className="text-zinc-600 text-lg leading-relaxed mb-12 font-medium">
-                {settings.aboutContent}
-              </p>
-              <div className="flex items-center space-x-6">
-                <div className="w-16 h-[2px] bg-black"></div>
-                <p className="text-xs font-black uppercase tracking-[0.3em] text-black">Architectural Precision • Crafted Worldwide</p>
-              </div>
-            </div>
           </div>
         </section>
       )}
