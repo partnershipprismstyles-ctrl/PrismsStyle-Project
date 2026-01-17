@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Star, ShoppingBag, Heart, Calendar, Timer } from 'lucide-react';
 import { useStore } from '../store/StoreContext';
@@ -34,17 +33,17 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
     <div className="animate-in fade-in duration-700">
       {/* Hero Section */}
       {settings.showHero && (
-        <section className="relative h-[95vh] w-full bg-black overflow-hidden">
-          <div className="absolute inset-0 opacity-80">
+        <section className="relative h-screen w-full bg-black overflow-hidden -mt-[88px]">
+          <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1529139572166-70845eb9f208?auto=format&fit=crop&q=80&w=1920" 
+              src={settings.heroBackgroundImage || "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=1920"} 
               alt="Hero Fashion" 
-              className="w-full h-full object-cover grayscale brightness-75"
+              className="w-full h-full object-cover brightness-90 transition-opacity duration-1000"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
           
-          <div className="relative h-full container mx-auto px-4 md:px-8 flex flex-col justify-center items-start text-white">
+          <div className="relative h-full container mx-auto px-4 md:px-8 flex flex-col justify-center items-start text-white pt-20">
             <div className="flex items-center space-x-3 mb-6 animate-in slide-in-from-left duration-700">
               <span className="w-12 h-[2px] bg-prism"></span>
               <p className="text-prism font-black tracking-[0.4em] uppercase text-[10px]">
@@ -59,7 +58,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end w-full">
               <div>
                 <p className="text-zinc-300 max-w-sm text-base md:text-lg mb-12 font-medium leading-relaxed animate-in slide-in-from-bottom duration-1000 delay-300">
-                  Precision-engineered silhouettes for the urban landscape. Experience the collision of high-performance textiles and brutalist aesthetics.
+                  {settings.heroSubheading}
                 </p>
                 <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8 animate-in slide-in-from-bottom duration-1000 delay-500">
                   <button 

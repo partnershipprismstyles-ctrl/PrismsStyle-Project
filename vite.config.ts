@@ -6,11 +6,12 @@ export default defineConfig({
   plugins: [react()],
   define: {
     // This injects the environment variable from the build environment (Netlify)
-    // into the client-side code as process.env.API_KEY
-    'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
+    // into the client-side code as process.env.API_KEY, with a fallback to avoid build errors.
+    'process.env.API_KEY': JSON.stringify(process.env.API_KEY || '')
   },
   build: {
     outDir: 'dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    sourcemap: false
   }
 });

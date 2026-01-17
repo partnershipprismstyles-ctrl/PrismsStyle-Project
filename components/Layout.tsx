@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, Search, User, Menu, X, Heart, Settings, Calendar } from 'lucide-react';
 import { useStore } from '../store/StoreContext';
@@ -62,29 +61,34 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setActivePage }) 
       );
     }
     const brandParts = settings.brandName.split(' ');
+    const isTransparentHome = activePage === 'home' && !isScrolled;
     return (
-      <h1 className="text-2xl md:text-3xl font-black font-oswald tracking-tighter text-black flex items-center">
+      <h1 className={`text-2xl md:text-3xl font-black font-oswald tracking-tighter flex items-center transition-colors duration-500 ${isTransparentHome ? 'text-white' : 'text-black'}`}>
         {brandParts[0]} {brandParts[1] && <span className="text-prism ml-1">{brandParts[1]}</span>}
       </h1>
     );
   };
 
+  const isTransparentHome = activePage === 'home' && !isScrolled;
+
   return (
     <div className={`min-h-screen flex flex-col bg-white font-${settings.fontFamily.toLowerCase()}`}>
       {/* Promotion Bar */}
-      <div className="bg-black text-white text-[10px] py-1.5 px-4 text-center uppercase tracking-widest font-black">
+      <div className="bg-black text-white text-[10px] py-1.5 px-4 text-center uppercase tracking-widest font-black z-[60]">
         Free worldwide express shipping on orders over $300
       </div>
 
       {/* Header */}
       <header 
-        className={`sticky top-0 z-50 w-full transition-all duration-300 border-b ${
-          isScrolled ? 'bg-white/90 backdrop-blur-md py-2 shadow-sm' : 'bg-white py-4'
+        className={`sticky top-0 z-50 w-full transition-all duration-500 border-b ${
+          isTransparentHome 
+            ? 'bg-transparent border-transparent' 
+            : 'bg-white/90 backdrop-blur-md py-2 shadow-sm border-zinc-100'
         }`}
       >
-        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
+        <div className="container mx-auto px-4 md:px-8 flex items-center justify-between py-2">
           <button 
-            className="md:hidden p-2 -ml-2"
+            className={`md:hidden p-2 -ml-2 transition-colors ${isTransparentHome ? 'text-white' : 'text-black'}`}
             onClick={() => setIsMobileMenuOpen(true)}
           >
             <Menu className="w-6 h-6" />
@@ -96,7 +100,11 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setActivePage }) 
               <button 
                 key={item.id}
                 onClick={() => setActivePage(item.page)}
-                className={`hover:text-prism transition-colors ${activePage === item.page ? 'text-black border-b border-black pb-1' : 'text-gray-400'}`}
+                className={`transition-all duration-500 hover:text-prism ${
+                  activePage === item.page 
+                    ? (isTransparentHome ? 'text-white border-b border-white pb-1' : 'text-black border-b border-black pb-1') 
+                    : (isTransparentHome ? 'text-zinc-300' : 'text-gray-400')
+                }`}
               >
                 {item.label}
               </button>
@@ -112,7 +120,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setActivePage }) 
           </div>
 
           {/* Action Icons */}
-          <div className="flex items-center space-x-4 md:space-x-6">
+          <div className={`flex items-center space-x-4 md:space-x-6 transition-colors duration-500 ${isTransparentHome ? 'text-white' : 'text-black'}`}>
             <button className="hidden sm:block p-1 hover:text-prism"><Search className="w-5 h-5" /></button>
             <button 
               onClick={() => setActivePage('wishlist')}
@@ -131,7 +139,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setActivePage }) 
             >
               <ShoppingBag className="w-5 h-5" />
               {cartTotalItems > 0 && (
-                <span className="absolute -top-1 -right-1 bg-black text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className={`absolute -top-1 -right-1 text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center font-bold ${isTransparentHome ? 'bg-prism' : 'bg-black'}`}>
                   {cartTotalItems}
                 </span>
               )}
@@ -150,7 +158,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setActivePage }) 
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm">
-          <div className="bg-white w-[280px] h-full p-8 flex flex-col animate-in slide-in-from-left duration-300">
+          <div className="bg-white w-[280px] h-full p-8 flex flex-col animate-in slide-in-from-left duration-300 shadow-2xl">
             <div className="flex justify-between items-center mb-12">
               <h2 className="text-xl font-black font-oswald tracking-tighter uppercase">{settings.brandName.split(' ')[0]}</h2>
               <button onClick={() => setIsMobileMenuOpen(false)}><X className="w-6 h-6" /></button>
@@ -159,7 +167,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setActivePage }) 
               {settings.navItems.map(item => (
                 <button key={item.id} onClick={() => { setActivePage(item.page); setIsMobileMenuOpen(false); }}>{item.label}</button>
               ))}
-              <button onClick={() => { setActivePage('blog'); setIsMobileMenuOpen(false); }}>Insights</button>
+              <button onClick={() => { setActivePage('journal'); setIsMobileMenuOpen(false); }}>Journal</button>
             </nav>
           </div>
         </div>
@@ -180,7 +188,9 @@ const Layout: React.FC<LayoutProps> = ({ children, activePage, setActivePage }) 
             {/* Branding */}
             <div className="md:col-span-1">
               <div className="flex flex-col items-start">
-                {renderLogo()}
+                <h1 className="text-2xl md:text-3xl font-black font-oswald tracking-tighter text-white flex items-center">
+                  {settings.brandName.split(' ')[0]} <span className="text-prism ml-1">{settings.brandName.split(' ')[1]}</span>
+                </h1>
                 <p className="text-zinc-500 text-sm leading-relaxed mb-8 mt-6">
                   {settings.seoDescription}
                 </p>

@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Product, CartItem, Order, BlogPost, SiteSettings, Category, NavItem } from '../types';
 
@@ -241,7 +240,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     showBookingCTA: true,
     heroHeading: 'BEYOND THE SPECTRUM.',
     heroSubheading: 'Architectural aesthetics meets urban utility. Discover Phase 01: Limited drop featuring technical knits and industrial silhouettes.',
-    heroBackgroundImage: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&q=80&w=1920',
+    heroBackgroundImage: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=1920',
     aboutHeading: 'REDEFINING THE MODERN SILHOUETTE.',
     aboutContent: 'PRISM STYLES was born from a desire to bridge the gap between high-fashion structural integrity and the raw energy of urban streetwear. Every piece is an exercise in technical precision.',
     navItems: [
