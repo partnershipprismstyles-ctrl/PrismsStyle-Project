@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { 
   LayoutDashboard, 
@@ -13,20 +12,22 @@ import {
   DollarSign,
   Save,
   Eye,
-  EyeOff,
+  X,
   Type,
   Palette,
   Globe,
   Navigation as NavIcon,
-  Image as ImageIcon,
-  Check,
-  Upload
+  Image as ImageIcon
 } from 'lucide-react';
 import { useStore } from '../store/StoreContext';
-import { Product, Order, BlogPost, SiteSettings, NavItem } from '../types';
+import { Product, Order, BlogPost, SiteSettings } from '../types';
 
-const Admin: React.FC = () => {
-  const { products, setProducts, orders, updateOrderStatus, blogPosts, setBlogPosts, settings, updateSettings } = useStore();
+interface AdminProps {
+  onExit: () => void;
+}
+
+const Admin: React.FC<AdminProps> = ({ onExit }) => {
+  const { products, setProducts, orders, blogPosts, setBlogPosts, settings, updateSettings } = useStore();
   const [activeTab, setActiveTab] = useState<'dashboard' | 'inventory' | 'orders' | 'cms' | 'design' | 'seo'>('dashboard');
 
   const totalSales = orders.reduce((acc, curr) => acc + curr.total, 0);
@@ -76,7 +77,7 @@ const Admin: React.FC = () => {
       {/* Sidebar */}
       <aside className="w-64 bg-black text-white p-8 flex flex-col shrink-0 sticky top-0 h-screen">
         <div className="mb-12">
-          <h2 className="text-xl font-black font-oswald tracking-tighter">PRISM <span className="text-prism">SYSTEM</span></h2>
+          <h2 className="text-xl font-black font-oswald tracking-tighter uppercase">PRISM <span className="text-prism">STYLES</span></h2>
           <p className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest mt-1">Management Engine v2.0</p>
         </div>
         <nav className="flex-grow space-y-2">
@@ -101,9 +102,9 @@ const Admin: React.FC = () => {
           ))}
         </nav>
         <div className="mt-auto pt-8 border-t border-zinc-800">
-           <button onClick={() => window.location.href = '/'} className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">
+           <button onClick={onExit} className="flex items-center space-x-2 text-[10px] font-black uppercase tracking-widest text-zinc-500 hover:text-white transition-colors">
               <Eye className="w-4 h-4" />
-              <span>View Site</span>
+              <span>Back to Store</span>
            </button>
         </div>
       </aside>
@@ -113,11 +114,20 @@ const Admin: React.FC = () => {
         <header className="flex justify-between items-center mb-12">
           <div>
             <h1 className="text-4xl font-black font-oswald uppercase tracking-tight">{activeTab}</h1>
-            <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mt-1">Refining your brand identity</p>
+            <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mt-1">Refining PRISM STYLES brand identity</p>
           </div>
-          <button className="bg-black text-white px-8 py-3 rounded text-[10px] font-black uppercase tracking-widest hover:bg-zinc-800 transition-all flex items-center shadow-lg">
-             <Save className="w-4 h-4 mr-3" /> Save Changes
-          </button>
+          <div className="flex items-center space-x-4">
+            <button className="bg-black text-white px-8 py-3 rounded text-[10px] font-black uppercase tracking-widest hover:bg-zinc-800 transition-all flex items-center shadow-lg">
+               <Save className="w-4 h-4 mr-3" /> Save Changes
+            </button>
+            <button 
+              onClick={onExit}
+              className="p-3 bg-zinc-200 text-zinc-600 rounded-full hover:bg-zinc-300 hover:text-black transition-all"
+              title="Exit Dashboard"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
         </header>
 
         {/* Analytics Tab */}
@@ -136,7 +146,6 @@ const Admin: React.FC = () => {
                 </div>
               ))}
             </div>
-            {/* Recent Orders Placeholder */}
             <div className="bg-white p-8 rounded-2xl border border-zinc-200 shadow-sm">
                 <h3 className="text-sm font-black uppercase tracking-widest mb-8 border-b pb-4">Recent Transactions</h3>
                 <div className="space-y-6">
@@ -258,7 +267,6 @@ const Admin: React.FC = () => {
         {/* Design Tab */}
         {activeTab === 'design' && (
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Branding Section */}
               <div className="bg-white p-10 rounded-2xl border border-zinc-200 shadow-sm space-y-10">
                  <div className="flex items-center space-x-3 mb-6">
                     <Palette className="w-5 h-5 text-prism" />
@@ -273,7 +281,6 @@ const Admin: React.FC = () => {
                          onChange={(e) => updateSettings({...settings, brandName: e.target.value})}
                        />
                     </div>
-                    
                     <div className="pt-4 border-t border-zinc-50">
                        <div className="flex justify-between items-center mb-4">
                           <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 block">Use Image-based Logo</label>
@@ -284,22 +291,7 @@ const Admin: React.FC = () => {
                              <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${settings.useImageLogo ? 'right-1' : 'left-1'}`}></div>
                           </button>
                        </div>
-                       <div className="space-y-3">
-                          <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 block mb-2">Logo URL</label>
-                          <div className="flex items-center space-x-3">
-                             <div className="w-10 h-10 rounded border bg-zinc-50 flex items-center justify-center overflow-hidden">
-                                {settings.logoImage ? <img src={settings.logoImage} className="w-full h-full object-contain" /> : <ImageIcon className="w-4 h-4 text-zinc-300" />}
-                             </div>
-                             <input 
-                                className="flex-grow border-b border-zinc-200 py-2 text-xs font-medium focus:border-prism outline-none" 
-                                placeholder="https://..."
-                                value={settings.logoImage} 
-                                onChange={(e) => updateSettings({...settings, logoImage: e.target.value})} 
-                             />
-                          </div>
-                       </div>
                     </div>
-
                     <div className="grid grid-cols-2 gap-8 pt-4">
                        <div>
                           <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 block mb-2">Accent Color</label>
@@ -308,87 +300,24 @@ const Admin: React.FC = () => {
                              <input className="text-[10px] font-black uppercase w-full bg-zinc-50 p-2 border" value={settings.accentColor} onChange={(e) => updateSettings({...settings, accentColor: e.target.value})} />
                           </div>
                        </div>
-                       <div>
-                          <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 block mb-2">Typography</label>
-                          <select className="text-[10px] font-black uppercase w-full bg-zinc-50 p-2 border" value={settings.fontFamily} onChange={(e) => updateSettings({...settings, fontFamily: e.target.value as any})}>
-                             <option value="Inter">Standard (Inter)</option>
-                             <option value="Oswald">Bold (Oswald)</option>
-                             <option value="Serif">Classic (Serif)</option>
-                          </select>
-                       </div>
-                    </div>
-                 </div>
-                 
-                 <div className="pt-10 border-t space-y-6">
-                    <h3 className="text-[11px] font-black uppercase tracking-widest">Navigation Editor</h3>
-                    <div className="space-y-3">
-                       {settings.navItems.map(nav => (
-                          <div key={nav.id} className="flex items-center space-x-3 bg-zinc-50 p-3 rounded-lg border">
-                             <NavIcon className="w-3 h-3 text-zinc-400" />
-                             <input className="text-[10px] font-bold uppercase bg-transparent outline-none flex-grow" value={nav.label} onChange={(e) => {
-                                const newNavs = settings.navItems.map(ni => ni.id === nav.id ? {...ni, label: e.target.value} : ni);
-                                updateSettings({...settings, navItems: newNavs});
-                             }} />
-                             <button className="text-zinc-400 hover:text-black"><Edit className="w-3 h-3" /></button>
-                          </div>
-                       ))}
-                       <button className="w-full py-2 border-2 border-dashed border-zinc-200 rounded-lg text-[10px] font-black uppercase text-zinc-400 hover:bg-zinc-50 transition-colors">Add Menu Item</button>
                     </div>
                  </div>
               </div>
 
-              {/* Homepage Sections */}
               <div className="bg-white p-10 rounded-2xl border border-zinc-200 shadow-sm space-y-10">
                  <div className="flex items-center space-x-3 mb-6">
                     <Type className="w-5 h-5 text-prism" />
                     <h3 className="text-[11px] font-black uppercase tracking-widest">Layout & Content</h3>
                  </div>
-                 
                  <div className="space-y-6">
                     <div>
                        <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 block mb-2">Hero Background Picture (URL)</label>
-                       <div className="flex items-center space-x-3 mb-2">
-                          <div className="w-16 h-10 rounded border bg-zinc-50 overflow-hidden shrink-0">
-                             <img src={settings.heroBackgroundImage} className="w-full h-full object-cover" />
-                          </div>
-                          <input 
-                             className="flex-grow border-b border-zinc-200 py-2 text-xs font-medium focus:border-prism outline-none" 
-                             value={settings.heroBackgroundImage}
-                             onChange={(e) => updateSettings({...settings, heroBackgroundImage: e.target.value})}
-                          />
-                       </div>
+                       <input 
+                          className="w-full border-b border-zinc-200 py-2 text-xs font-medium focus:border-prism outline-none" 
+                          value={settings.heroBackgroundImage}
+                          onChange={(e) => updateSettings({...settings, heroBackgroundImage: e.target.value})}
+                       />
                     </div>
-
-                    <div className="pt-4 border-t border-zinc-50 space-y-4">
-                       <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-4">Homepage Sections Visibility</p>
-                       {[
-                         { key: 'showHero', label: 'Main Hero Experience' },
-                         { key: 'showCategories', label: 'Product Essentials Grid' },
-                         { key: 'showBestsellers', label: 'Bestseller Carousel' },
-                         { key: 'showAbout', label: 'Brand Story Section' },
-                         { key: 'showReviews', label: 'Social Proof & Reviews' },
-                         { key: 'showBookingCTA', label: 'VIP Concierge CTA' }
-                       ].map(section => (
-                         <div key={section.key} className="flex justify-between items-center bg-zinc-50 p-4 rounded-xl border">
-                            <span className="text-[11px] font-bold uppercase tracking-tight">{section.label}</span>
-                            <button 
-                              onClick={() => updateSettings({...settings, [section.key]: !settings[section.key as keyof SiteSettings]})}
-                              className={`w-10 h-6 rounded-full transition-all relative ${settings[section.key as keyof SiteSettings] ? 'bg-black' : 'bg-zinc-300'}`}
-                            >
-                               <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${settings[section.key as keyof SiteSettings] ? 'right-1' : 'left-1'}`}></div>
-                            </button>
-                         </div>
-                       ))}
-                    </div>
-                 </div>
-
-                 <div className="pt-10 border-t space-y-6">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400 block">Hero Title Customization</label>
-                    <input 
-                      className="w-full border-b border-zinc-200 py-3 text-2xl font-black font-oswald uppercase focus:border-prism outline-none"
-                      value={settings.heroHeading}
-                      onChange={(e) => updateSettings({...settings, heroHeading: e.target.value})}
-                    />
                  </div>
               </div>
            </div>
@@ -409,23 +338,6 @@ const Admin: React.FC = () => {
                       value={settings.seoTitle}
                       onChange={(e) => updateSettings({...settings, seoTitle: e.target.value})}
                     />
-                    <p className="text-[9px] text-zinc-400 uppercase tracking-tighter">Recommended: Under 60 characters</p>
-                 </div>
-                 <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Global Search Description</label>
-                    <textarea 
-                      className="w-full border p-4 text-xs font-medium outline-none focus:ring-1 focus:ring-prism rounded-lg h-32 resize-none"
-                      value={settings.seoDescription}
-                      onChange={(e) => updateSettings({...settings, seoDescription: e.target.value})}
-                    />
-                    <p className="text-[9px] text-zinc-400 uppercase tracking-tighter">Recommended: 150-160 characters for best results in Google.</p>
-                 </div>
-                 <div className="pt-8 border-t flex items-center justify-between">
-                    <div>
-                       <p className="text-[10px] font-black uppercase tracking-widest mb-1">Search Preview</p>
-                       <p className="text-blue-600 text-sm font-medium underline mb-1">{settings.seoTitle}</p>
-                       <p className="text-zinc-500 text-xs line-clamp-2 max-w-md">{settings.seoDescription}</p>
-                    </div>
                  </div>
               </div>
            </div>

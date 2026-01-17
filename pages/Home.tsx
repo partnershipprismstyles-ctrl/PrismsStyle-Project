@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { ArrowRight, Star, ShoppingBag, Heart, Calendar } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Star, ShoppingBag, Heart, Calendar, Timer } from 'lucide-react';
 import { useStore } from '../store/StoreContext';
 
 const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ onNavigate }) => {
@@ -8,7 +8,20 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
   const featured = products.filter(p => p.featured);
   const bestSellers = products.filter(p => p.bestSeller);
 
-  // 5 High-Visibility, Ultra-Professional Men's Looks
+  // Countdown timer logic for conversion
+  const [timeLeft, setTimeLeft] = useState({ h: 0, m: 59, s: 45 });
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(prev => {
+        if (prev.s > 0) return { ...prev, s: prev.s - 1 };
+        if (prev.m > 0) return { ...prev, m: prev.m - 1, s: 59 };
+        if (prev.h > 0) return { ...prev, h: prev.h - 1, m: 59, s: 59 };
+        return prev;
+      });
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
   const menStyleGallery = [
     { id: 1, img: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&q=80&w=800', label: 'Structured Minimalism' },
     { id: 2, img: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=800', label: 'Urban Utility' },
@@ -21,52 +34,78 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
     <div className="animate-in fade-in duration-700">
       {/* Hero Section */}
       {settings.showHero && (
-        <section className="relative h-[90vh] w-full bg-black overflow-hidden">
-          <div className="absolute inset-0 opacity-70">
+        <section className="relative h-[95vh] w-full bg-black overflow-hidden">
+          <div className="absolute inset-0 opacity-80">
             <img 
-              src={settings.heroBackgroundImage} 
+              src="https://images.unsplash.com/photo-1529139572166-70845eb9f208?auto=format&fit=crop&q=80&w=1920" 
               alt="Hero Fashion" 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover grayscale brightness-75"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black via-black/30 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
           
           <div className="relative h-full container mx-auto px-4 md:px-8 flex flex-col justify-center items-start text-white">
-            <div className="overflow-hidden mb-4">
-              <p className="text-prism font-black tracking-[0.4em] uppercase text-xs animate-in slide-in-from-bottom duration-1000">
-                Seasonal Drop 2026
+            <div className="flex items-center space-x-3 mb-6 animate-in slide-in-from-left duration-700">
+              <span className="w-12 h-[2px] bg-prism"></span>
+              <p className="text-prism font-black tracking-[0.4em] uppercase text-[10px]">
+                Drop Phase 01 / Available Now
               </p>
             </div>
-            <h1 className="text-5xl md:text-9xl font-black font-oswald uppercase tracking-tighter leading-[0.85] mb-10 max-w-3xl animate-in slide-in-from-bottom duration-1000 delay-150">
+            
+            <h1 className="text-6xl md:text-[9rem] font-black font-oswald uppercase tracking-tighter leading-[0.8] mb-12 max-w-5xl animate-in slide-in-from-bottom duration-1000 delay-150">
                {settings.heroHeading}
             </h1>
-            <p className="text-zinc-300 max-w-md text-base md:text-lg mb-12 font-medium leading-relaxed animate-in slide-in-from-bottom duration-1000 delay-300">
-              {settings.heroSubheading}
-            </p>
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8 animate-in slide-in-from-bottom duration-1000 delay-500">
-              <button 
-                onClick={() => onNavigate('shop')}
-                className="bg-white text-black px-12 py-6 text-xs font-black uppercase tracking-[0.2em] hover:bg-black hover:text-white transition-all duration-300 flex items-center shadow-2xl"
-              >
-                Enter Shop <ArrowRight className="ml-4 w-4 h-4" />
-              </button>
-              <button 
-                onClick={() => onNavigate('portfolio')}
-                className="border border-white/20 backdrop-blur-xl bg-white/5 px-12 py-6 text-xs font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all duration-300"
-              >
-                Editorial
-              </button>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-end w-full">
+              <div>
+                <p className="text-zinc-300 max-w-sm text-base md:text-lg mb-12 font-medium leading-relaxed animate-in slide-in-from-bottom duration-1000 delay-300">
+                  Precision-engineered silhouettes for the urban landscape. Experience the collision of high-performance textiles and brutalist aesthetics.
+                </p>
+                <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8 animate-in slide-in-from-bottom duration-1000 delay-500">
+                  <button 
+                    onClick={() => onNavigate('shop')}
+                    className="bg-white text-black px-12 py-6 text-xs font-black uppercase tracking-[0.2em] hover:bg-prism hover:text-white transition-all duration-500 flex items-center shadow-2xl group"
+                  >
+                    Enter Shop <ArrowRight className="ml-4 w-4 h-4 group-hover:translate-x-2 transition-transform" />
+                  </button>
+                  <button 
+                    onClick={() => onNavigate('portfolio')}
+                    className="border border-white/20 backdrop-blur-xl bg-white/5 px-12 py-6 text-xs font-black uppercase tracking-[0.2em] hover:bg-white/10 transition-all duration-300"
+                  >
+                    Explore Archives
+                  </button>
+                </div>
+              </div>
+
+              {/* Conversion Booster: Countdown */}
+              <div className="hidden md:flex flex-col items-end animate-in fade-in duration-1000 delay-700">
+                <p className="text-[10px] font-black uppercase tracking-[0.5em] text-zinc-400 mb-4 flex items-center">
+                  <Timer className="w-3 h-3 mr-2 text-prism animate-pulse" /> Reserve Slot: Batch 01
+                </p>
+                <div className="flex space-x-4 text-5xl font-black font-oswald">
+                  <div className="text-right">
+                    <span>{timeLeft.h.toString().padStart(2, '0')}</span>
+                    <p className="text-[8px] uppercase tracking-widest text-zinc-500 mt-1">Hours</p>
+                  </div>
+                  <span className="text-prism">:</span>
+                  <div className="text-right">
+                    <span>{timeLeft.m.toString().padStart(2, '0')}</span>
+                    <p className="text-[8px] uppercase tracking-widest text-zinc-500 mt-1">Minutes</p>
+                  </div>
+                  <span className="text-prism">:</span>
+                  <div className="text-right">
+                    <span>{timeLeft.s.toString().padStart(2, '0')}</span>
+                    <p className="text-[8px] uppercase tracking-widest text-zinc-500 mt-1">Seconds</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="absolute bottom-0 w-full bg-prism py-3 overflow-hidden whitespace-nowrap z-10">
+          <div className="absolute bottom-0 w-full bg-prism py-3 overflow-hidden whitespace-nowrap z-10 border-t border-white/10">
             <div className="inline-block animate-marquee uppercase text-[10px] font-black tracking-[0.4em] text-white px-4">
-              • LIMITED EDITION DROP • WORLDWIDE SHIPPING • SHOP NOW • JOIN THE CIRCLE • LIMITED EDITION DROP • WORLDWIDE SHIPPING • SHOP NOW •
+              • NEXT GEN TEXTILES • LIMITED QUANTITY • SECURE YOUR SILHOUETTE • WORLDWIDE EXPRESS • ARCHITECTURAL INTEGRITY • NEXT GEN TEXTILES • LIMITED QUANTITY • SECURE YOUR SILHOUETTE •
             </div>
-            <style>{`
-              @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-              .animate-marquee { animation: marquee 25s linear infinite; display: inline-block; width: 200%; }
-            `}</style>
           </div>
         </section>
       )}
@@ -79,7 +118,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
               <h2 className="text-prism font-black uppercase tracking-[0.5em] text-[10px] mb-4">Men's Style Spotlight</h2>
               <h3 className="text-6xl font-black font-oswald uppercase tracking-tighter mb-8 leading-none">PRISM <br />MASCULINE.</h3>
               <p className="text-gray-400 text-sm font-bold uppercase tracking-[0.2em] max-w-lg leading-relaxed">
-                Precision-engineered silhouettes met with high-performance textiles. Discover 5 signature directions for the modern wardrobe.
+                Explore 5 directional looks curated for the architectural wardrobe. High-density fabrics meet zero-gravity draping.
               </p>
             </div>
             <button 
@@ -120,7 +159,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
                 <h4 className="text-6xl font-black font-oswald uppercase tracking-tight mb-8 leading-none">{menStyleGallery[2].label}</h4>
                 <button 
                   onClick={() => onNavigate('shop', { category: 'Men' })}
-                  className="bg-white text-black px-12 py-5 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-black hover:text-white transition-all shadow-2xl"
+                  className="bg-white text-black px-12 py-5 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-prism hover:text-white transition-all shadow-2xl"
                 >
                   Acquire Look
                 </button>
@@ -198,7 +237,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
       {settings.showBookingCTA && (
         <section className="bg-black text-white py-32 overflow-hidden relative">
           <div className="absolute top-0 right-0 w-2/5 h-full opacity-40 grayscale blur-md pointer-events-none">
-            <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover" />
+            <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover" alt="Concierge Background" />
           </div>
           <div className="container mx-auto px-4 md:px-8 relative z-10">
             <div className="max-w-2xl">
@@ -207,7 +246,7 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
                 VIP STYLING <br />CONCIERGE.
               </h3>
               <p className="text-zinc-400 text-lg mb-14 leading-relaxed font-medium">
-                Experience the future of fashion in person. Our private showroom sessions offer one-on-one styling, custom tailoring, and exclusive previews of upcoming drops.
+                Experience the future of fashion in person. Private showroom sessions for bespoke tailoring and exclusive previews.
               </p>
               <button 
                 onClick={() => onNavigate('booking')}
@@ -237,9 +276,16 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
                     alt={product.name} 
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
+                  <div className="absolute top-6 left-6 z-10">
+                    {product.stock < 15 && (
+                      <span className="bg-red-600 text-white text-[9px] font-black uppercase px-3 py-1.5 tracking-tighter animate-pulse shadow-xl">
+                        Batch Almost Exhausted
+                      </span>
+                    )}
+                  </div>
                   <button 
                     onClick={(e) => { e.stopPropagation(); toggleWishlist(product.id); }}
-                    className={`absolute top-6 right-6 p-4 rounded-full shadow-2xl transition-all ${wishlist.includes(product.id) ? 'bg-red-500 text-white' : 'bg-white text-black hover:bg-black hover:text-white'}`}
+                    className={`absolute top-6 right-6 p-4 rounded-full shadow-2xl transition-all z-10 ${wishlist.includes(product.id) ? 'bg-red-500 text-white' : 'bg-white text-black hover:bg-black hover:text-white'}`}
                   >
                     <Heart className={`w-5 h-5 ${wishlist.includes(product.id) ? 'fill-current' : ''}`} />
                   </button>
@@ -292,33 +338,6 @@ const Home: React.FC<{ onNavigate: (page: string, data?: any) => void }> = ({ on
                 <div className="w-16 h-[2px] bg-black"></div>
                 <p className="text-xs font-black uppercase tracking-[0.3em] text-black">Architectural Precision • Crafted Worldwide</p>
               </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Reviews Section */}
-      {settings.showReviews && (
-        <section className="bg-black text-white py-32">
-          <div className="container mx-auto px-4 md:px-8">
-            <div className="text-center mb-24">
-              <h2 className="text-prism font-black uppercase tracking-[0.5em] text-[10px] mb-6">Prism Society</h2>
-              <h3 className="text-5xl font-black font-oswald uppercase tracking-tight mb-6">Verified Aesthetics</h3>
-              <div className="flex justify-center space-x-1 text-prism">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-5 h-5 fill-current" />)}
-              </div>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-              {[
-                { name: "Jordan M.", text: "The architectural lines on the technical jacket are insane. Finally, streetwear with a soul." },
-                { name: "Sarah K.", text: "Ordering was seamless. The iridescent materials react perfectly in low light. Obsessed." },
-                { name: "Marcus L.", text: "Heavyweight fabrics that actually hold their structure. Prism is in a league of its own." }
-              ].map((review, idx) => (
-                <div key={idx} className="bg-zinc-900/50 p-10 border border-zinc-800 hover:border-prism/50 transition-all duration-500 backdrop-blur-sm shadow-xl">
-                  <p className="text-zinc-400 italic mb-8 leading-relaxed font-medium">"{review.text}"</p>
-                  <p className="font-black uppercase tracking-[0.3em] text-[10px] text-prism">{review.name}</p>
-                </div>
-              ))}
             </div>
           </div>
         </section>

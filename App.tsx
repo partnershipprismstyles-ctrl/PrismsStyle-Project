@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { StoreProvider } from './store/StoreContext';
 import Layout from './components/Layout';
@@ -8,6 +7,7 @@ import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import Admin from './pages/Admin';
 import Booking from './pages/Booking';
+import Journal from './pages/Journal';
 
 const App: React.FC = () => {
   const [activePage, setActivePage] = useState('home');
@@ -36,8 +36,9 @@ const App: React.FC = () => {
       case 'shop': return <Shop onNavigate={navigate} initialFilter={pageData?.category} />;
       case 'product': return <ProductDetail product={pageData} onNavigate={navigate} />;
       case 'cart': return <Cart onNavigate={navigate} />;
-      case 'admin': return <Admin />;
+      case 'admin': return <Admin onExit={() => navigate('home')} />;
       case 'booking': return <Booking />;
+      case 'journal': return <Journal />;
       case 'wishlist': return <Shop onNavigate={navigate} initialFilter="All" />;
       case 'portfolio': return (
         <div className="py-24 animate-in fade-in duration-700">
@@ -67,7 +68,7 @@ const App: React.FC = () => {
   return (
     <StoreProvider>
       {activePage === 'admin' ? (
-        <Admin />
+        <Admin onExit={() => navigate('home')} />
       ) : (
         <Layout activePage={activePage} setActivePage={navigate}>
           {renderPage()}

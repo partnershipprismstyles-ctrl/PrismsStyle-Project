@@ -1,5 +1,9 @@
-
 export type Category = 'Men' | 'Women' | 'Accessories' | 'Limited';
+
+export interface ProductSpec {
+  label: string;
+  value: string;
+}
 
 export interface Product {
   id: string;
@@ -16,6 +20,7 @@ export interface Product {
   slug?: string;
   metaTitle?: string;
   metaDescription?: string;
+  specs?: ProductSpec[];
 }
 
 export interface CartItem extends Product {
@@ -37,12 +42,14 @@ export interface Order {
 export interface BlogPost {
   id: string;
   title: string;
+  subtitle?: string;
   excerpt: string;
   content: string;
   author: string;
   date: string;
   image: string;
   slug?: string;
+  category?: string;
   metaTitle?: string;
   metaDescription?: string;
 }
